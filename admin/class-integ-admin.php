@@ -209,25 +209,4 @@ class Integ_Admin
         $order = wc_get_order($order_id);
         $this->client->orders()->update($order);
     }
-
-    /**
-     * @param $columns array
-     * @return array
-     */
-    public function add_column_product_integ($columns)
-    {
-        $columns['integ_product_integrated'] = 'Integrado';
-        return $columns;
-    }
-
-    /**
-     * @param $column string
-     * @return void
-     */
-    public function fill_column_product_integ($column)
-    {
-        if ($column === 'integ_product_integrated') {
-            echo '❌';
-        }
-    }
 }

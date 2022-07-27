@@ -203,17 +203,6 @@ class Integ
         |
         */
         $this->loader->add_action('woocommerce_general_settings', $plugin_admin, 'add_token_input');
-
-        /*
-        |--------------------------------------------------------------------------
-        | Product Column Filters
-        |--------------------------------------------------------------------------
-        |
-        | Add the column to mark if a product is already integrated.
-        |
-        */
-        $this->loader->add_filter('manage_edit-product_columns', $plugin_admin, 'add_column_product_integ');
-        $this->loader->add_filter('manage_product_posts_custom_column', $plugin_admin, 'fill_column_product_integ');
     }
 
     /**
