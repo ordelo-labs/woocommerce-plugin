@@ -1,6 +1,6 @@
 <?php
 
-class IntegOrder extends AbstractAPI
+class Integ_OrderService extends Integ_AbstractAPI
 {
     public function update(array $data)
     {

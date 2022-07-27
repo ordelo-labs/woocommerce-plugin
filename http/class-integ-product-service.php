@@ -1,11 +1,11 @@
 <?php
 
-class IntegProduct extends AbstractAPI
+class Integ_ProductService extends Integ_AbstractAPI
 {
     /**
      * Create new product integration
      */
-    public function create(array $data)
+    public function create($data)
     {
         $response = wp_remote_post(
             sprintf('%s/products', $this->endpoint),
@@ -21,7 +21,7 @@ class IntegProduct extends AbstractAPI
      * @param   string  $id    Product Code
      * @param   array   $data  Product Data
      */
-    public function update($id, array $data)
+    public function update($id, $data)
     {
         $response = wp_remote_post(
             sprintf('%s/products/%s', $this->endpoint, $id),

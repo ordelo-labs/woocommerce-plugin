@@ -1,6 +1,6 @@
 <?php
 
-abstract class AbstractAPI
+abstract class Integ_AbstractAPI
 {
     /**
      * Request headers

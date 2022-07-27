@@ -1,7 +1,7 @@
 <?php
 
 
-abstract class AbstractEntity
+abstract class Integ_AbstractEntity
 {
     /**
      * Constructor
