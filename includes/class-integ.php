@@ -125,7 +125,7 @@ class Integ {
         /**
          * This class responsible to call the integ REST API.
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'http/Integ.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'http/integ.php';
 
 		$this->loader = new Integ_Loader();
 
@@ -157,7 +157,11 @@ class Integ {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Integ_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Integ_Admin(
+			$this->get_plugin_name(),
+			$this->get_version(),
+			new IntegClient( get_option($this->plugin_name, 1) )
+		);
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );

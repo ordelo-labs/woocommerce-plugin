@@ -1,6 +1,6 @@
 <?php
 
-class Integ
+class IntegClient
 {
     private $token;
 
