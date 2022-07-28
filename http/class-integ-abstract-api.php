@@ -19,10 +19,8 @@ abstract class Integ_AbstractAPI
     public function __construct($token)
     {
         $this->headers = [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $token,
-                'Content-Type' => 'application/json'
-            ]
+            'Authorization' => 'Bearer ' . $token,
+            'Content-Type' => 'application/json'
         ];
     }
 
