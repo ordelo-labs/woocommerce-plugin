@@ -134,7 +134,7 @@ class Integ_Admin
                     'name' => __('Token para integ.app', 'wc_seq_order_numbers'),
                     'desc_tip' => __('Token de requisição encontrado no painel de controle (pagina de perfil)', 'wc_seq_order_numbers'),
                     'id' => $this->plugin_name,
-                    'type' => 'text',
+                    'type' => 'password',
                     'css' => 'min-width:300px;',
                     'std' => '',  // WC < 2.0
                     'default' => '',  // WC >= 2.0
@@ -160,18 +160,36 @@ class Integ_Admin
     */
     public function product_lifecycle_handler($new_status, $old_status, $post)
     {
+        if (empty(get_option($this->plugin_name))) {
+            error_log("[melihub.app] token not configured.");
+            return null;
+        }
+
+        /**
+         * This status means that the product
+         * is not ready to be sold yet.
+         */
         $isNotProduct = $post->post_type !== 'product';
         $isAutoDraft = $new_status === 'auto-draft';
-        if ($isNotProduct || $isAutoDraft) {
+        $isImporting = $new_status === 'importing';
+        if ($isNotProduct || $isAutoDraft || $isImporting) {
             return null;
         }
 
-        if ($old_status === 'publish' || $old_status === 'trash' || $new_status === 'draft') {
-            $this->on_product_update($post);
+        /**
+         * These status are used to disable the product on the
+         * store catalog, we will send a request to disable
+         * the product as well.
+         */
+        $isTrashed = $new_status === 'trash';
+        $isDraft = $new_status === 'draft';
+        $isPending = $new_status === 'pending';
+        if ($isTrashed || $isDraft || $isPending) {
+            $this->on_product_delete($post);
             return null;
         }
 
-        $this->on_product_create($post);
+        $this->on_product_update($post);
     }
 
     /**
