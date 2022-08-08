@@ -170,9 +170,8 @@ class Integ_Admin
          * is not ready to be sold yet.
          */
         $isNotProduct = $post->post_type !== 'product';
-        $isAutoDraft = $new_status === 'auto-draft';
-        $isImporting = $new_status === 'importing';
-        if ($isNotProduct || $isAutoDraft || $isImporting) {
+        $invalidStatus = ['aut-draft', 'importing'];
+        if ($isNotProduct || in_array($new_status, $invalidStatus)) {
             return null;
         }
 
@@ -181,10 +180,8 @@ class Integ_Admin
          * store catalog, we will send a request to disable
          * the product as well.
          */
-        $isTrashed = $new_status === 'trash';
-        $isDraft = $new_status === 'draft';
-        $isPending = $new_status === 'pending';
-        if ($isTrashed || $isDraft || $isPending) {
+        $disabledStatus = ['trash', 'draft', 'pending'];
+        if (in_array($new_status, $disabledStatus)) {
             $this->on_product_delete($post);
             return null;
         }
