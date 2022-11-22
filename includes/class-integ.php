@@ -80,7 +80,6 @@ class Integ
         $this->set_locale();
         $this->define_admin_hooks();
         $this->define_public_hooks();
-
     }
 
     /**
@@ -131,7 +130,6 @@ class Integ
         require_once plugin_dir_path(dirname(__FILE__)) . 'http/class-integ-client.php';
 
         $this->loader = new Integ_Loader();
-
     }
 
     /**
@@ -149,7 +147,6 @@ class Integ
         $plugin_i18n = new Integ_i18n();
 
         $this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
-
     }
 
     /**
@@ -203,6 +200,7 @@ class Integ
         |
         */
         $this->loader->add_action('woocommerce_general_settings', $plugin_admin, 'add_token_input');
+        $this->loader->add_action("update_option_{$this->plugin_name}", $plugin_admin, 'sync_attributes');
     }
 
     /**
@@ -219,7 +217,6 @@ class Integ
 
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
-
     }
 
     /**
@@ -265,5 +262,4 @@ class Integ
     {
         return $this->version;
     }
-
 }

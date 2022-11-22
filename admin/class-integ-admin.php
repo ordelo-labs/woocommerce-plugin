@@ -61,7 +61,6 @@ class Integ_Admin
         $this->plugin_name = $plugin_name;
         $this->version = $version;
         $this->client = $client;
-
     }
 
     /**
@@ -85,7 +84,6 @@ class Integ_Admin
          */
 
         wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/integ-admin.css', array(), $this->version, 'all');
-
     }
 
     /**
@@ -109,7 +107,6 @@ class Integ_Admin
          */
 
         wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/integ-admin.js', array('jquery'), $this->version, false);
-
     }
 
     /*
@@ -150,6 +147,26 @@ class Integ_Admin
 
     /*
     |--------------------------------------------------------------------------
+    | Save token input field
+    |--------------------------------------------------------------------------
+    |
+    | This function hooks into the action of saving the request token,
+    | it's mainly used to sync the product attributes and
+    | categories of products, to avoid extra work
+    | on our API we'll send all product and
+    | categories so we can map it latter.
+    */
+    public function sync_attributes($option_name, $old_value, $value)
+    {
+        // TODO: schedule a task to send product attributes
+        // and categories to the API.
+
+        // $this->client->categories()->upsert();
+        // $this->client->attributes()->upsert();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
     | Manage product status lifecycle
     |--------------------------------------------------------------------------
     |
@@ -170,7 +187,7 @@ class Integ_Admin
          * is not ready to be sold yet.
          */
         $isNotProduct = $post->post_type !== 'product';
-        $invalidStatus = ['aut-draft', 'importing'];
+        $invalidStatus = ['auto-draft', 'importing'];
         if ($isNotProduct || in_array($new_status, $invalidStatus)) {
             return null;
         }
