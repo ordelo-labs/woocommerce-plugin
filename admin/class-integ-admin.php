@@ -145,24 +145,40 @@ class Integ_Admin
         return $updated_settings;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Save token input field
-    |--------------------------------------------------------------------------
-    |
-    | This function hooks into the action of saving the request token,
-    | it's mainly used to sync the product attributes and
-    | categories of products, to avoid extra work
-    | on our API we'll send all product and
-    | categories so we can map it latter.
-    */
+    /**
+     * This function hooks into the action of saving the request token,
+     * it's mainly used to sync the product attributes and
+     * categories of products, to avoid extra work
+     * on our API we'll send all product and
+     * categories so we can map it latter.
+     *
+     * @param string $option_name
+     * @param string $old_value
+     * @param string $value
+     * @return void
+     */
     public function sync_attributes($option_name, $old_value, $value)
     {
-        // TODO: schedule a task to send product attributes
-        // and categories to the API.
+        $categories = get_terms(
+            array(
+                'taxonomy'      => 'product_cat',
+                'orderby'       => 'name',
+                'hide_empty'    => false,
+            )
+        );
+        $categories = treeify_terms($categories);
 
-        // $this->client->categories()->upsert();
-        // $this->client->attributes()->upsert();
+        $attributes = get_terms(
+            array(
+                'taxonomy'      => 'product_attr',
+                'orderby'       => 'name',
+                'hide_empty'    => true,
+            )
+        );
+        $attributes = treeify_terms($attributes);
+
+        $this->client->categories()->upsert($categories);
+        $this->client->attributes()->upsert($attributes);
     }
 
     /*
