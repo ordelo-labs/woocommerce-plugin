@@ -168,12 +168,16 @@ class Integ
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
+        /**
+         * This hook will work for both create and update of products.
+         */
+        $this->loader->add_action('woocommerce_update_product', $plugin_admin, 'on_product_update');
 
         /**
-         * Set which hooks will be used to manage products.
+         * Hook into the post transition status to get the "delete" action.
+         * The hook "woocommerce_delete_product" does not work.
          */
         $this->loader->add_action('transition_post_status', $plugin_admin, 'product_lifecycle_handler', 10, 3);
-        $this->loader->add_action('woocommerce_delete_product', $plugin_admin, 'on_product_delete', 11);
 
         /**
          * Set which hooks will be used to manage orders.

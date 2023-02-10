@@ -211,17 +211,15 @@ class Integ_Admin
             $this->on_product_delete($post);
             return null;
         }
-
-        $this->on_product_update($post);
     }
 
     /**
      * @param $post WP_POST
      * @return void
      */
-    public function on_product_update($post)
+    public function on_product_update($productID)
     {
-        $product = wc_get_product($post->ID);
+        $product = wc_get_product($productID);
         $this->client->products()->update($product->get_sku(), $product->get_data());
     }
 
