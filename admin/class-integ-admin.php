@@ -145,19 +145,19 @@ class Integ_Admin
         return $updated_settings;
     }
 
-    /**
-     * This function hooks into the action of saving the request token,
-     * it's mainly used to sync the product attributes and
-     * categories of products, to avoid extra work
-     * on our API we'll send all product and
-     * categories so we can map it latter.
-     *
-     * @param string $option_name
-     * @param string $old_value
-     * @param string $value
-     * @return void
-     */
-    public function sync_attributes($option_name, $old_value, $value)
+    /*
+    |--------------------------------------------------------------------------
+    | Sync product attributes and categories
+    |--------------------------------------------------------------------------
+    |
+    | This function hooks into the action of saving the request token,
+    | it's mainly used to sync the product attributes and
+    | categories of products, to avoid extra work
+    | on our API we'll send all product and
+    | categories so we can map it latter.
+    |
+    */
+    public function sync_attributes()
     {
         $categories = get_terms(
             array(
@@ -166,16 +166,9 @@ class Integ_Admin
                 'hide_empty'    => false,
             )
         );
-        $categories = treeify_terms($categories);
 
-        $attributes = get_terms(
-            array(
-                'taxonomy'      => 'product_attr',
-                'orderby'       => 'name',
-                'hide_empty'    => true,
-            )
-        );
-        $attributes = treeify_terms($attributes);
+        $categories = wp_list_pluck($categories, 'name');
+        $attributes = wp_list_pluck(array_values(wc_get_attribute_taxonomies()), 'attribute_name');
 
         $this->client->categories()->upsert($categories);
         $this->client->attributes()->upsert($attributes);

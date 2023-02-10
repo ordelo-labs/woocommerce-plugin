@@ -5,6 +5,7 @@ require 'class-integ-abstract-entity.php';
 require 'class-integ-product-service.php';
 require 'class-integ-order-service.php';
 require 'class-integ-category-service.php';
+require 'class-integ-attribute-service.php';
 
 
 class Integ_Client

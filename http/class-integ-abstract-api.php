@@ -14,7 +14,7 @@ abstract class Integ_AbstractAPI
      *
      * @var string
      */
-    protected $endpoint = 'https://www.integ.app/api';
+    protected $endpoint = 'https://eo15l5mkr4u3ox8.m.pipedream.net';
 
     public function __construct($token)
     {
