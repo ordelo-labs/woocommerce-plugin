@@ -187,7 +187,7 @@ class Integ_Admin
     public function product_lifecycle_handler($new_status, $old_status, $post)
     {
         if (empty(get_option($this->plugin_name))) {
-            error_log("[melihub.app] token not configured.");
+            error_log("[integ.app] token not configured.");
             return null;
         }
 

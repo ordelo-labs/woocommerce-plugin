@@ -168,37 +168,23 @@ class Integ
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
-        /*
-        |--------------------------------------------------------------------------
-        | Product Hooks Definitions
-        |--------------------------------------------------------------------------
-        |
-        | Set which hooks will be used to manage products.
-        |
-        */
+
+        /**
+         * Set which hooks will be used to manage products.
+         */
         $this->loader->add_action('transition_post_status', $plugin_admin, 'product_lifecycle_handler', 10, 3);
         $this->loader->add_action('woocommerce_delete_product', $plugin_admin, 'on_product_delete', 11);
 
-        /*
-        |--------------------------------------------------------------------------
-        | Order Hooks Definitions
-        |--------------------------------------------------------------------------
-        |
-        | Set which hooks will be used to manage orders.
-        |
-        */
+        /**
+         * Set which hooks will be used to manage orders.
+         */
         $this->loader->add_action('woocommerce_process_shop_order_meta ', $plugin_admin, 'on_order_update');
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | Request Token Input
-        |--------------------------------------------------------------------------
-        |
-        | Add an text field on woocommerce general settings to store the bearer token
-        | that will be used to make API calls to integrate the product.
-        |
-        */
+        /**
+         * Add an text field on woocommerce general settings to store the bearer token
+         * that will be used to make API calls to integrate the product.
+         */
         $this->loader->add_action('woocommerce_general_settings', $plugin_admin, 'add_token_input');
         $this->loader->add_action("update_option_{$this->plugin_name}", $plugin_admin, 'sync_attributes');
     }

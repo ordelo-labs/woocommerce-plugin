@@ -40,7 +40,7 @@ class Integ_ProductService extends Integ_AbstractAPI
     {
         wp_remote_request(
             sprintf('%s/products/%s', $this->endpoint, $product_sku),
-            ['method' => 'DELETE', 'headers' => $this->headers]
+            ['method' => "DELETE", 'headers' => $this->headers]
         );
     }
 
