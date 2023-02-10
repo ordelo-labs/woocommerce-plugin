@@ -162,7 +162,7 @@ class Integ
         $plugin_admin = new Integ_Admin(
             $this->get_plugin_name(),
             $this->get_version(),
-            new Integ_Client(get_option($this->plugin_name, 1))
+            new Integ_Client(get_option($this->plugin_name))
         );
 
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
