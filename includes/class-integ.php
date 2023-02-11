@@ -177,7 +177,7 @@ class Integ {
 		/**
 		 * Set which hooks will be used to manage orders.
 		 */
-		$this->loader->add_action( 'woocommerce_order_status_changed', $plugin_admin, 'on_order_create' );
+		$this->loader->add_action( 'woocommerce_order_status_changed', $plugin_admin, 'on_order_update', 10, 3 );
 
 		/**
 		 * Add an text field on woocommerce general settings to store the bearer token
