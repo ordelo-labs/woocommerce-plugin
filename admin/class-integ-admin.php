@@ -207,12 +207,18 @@ class Integ_Admin {
 
 			return null;
 		}
+
+		// Check if the product is being restore from trash.
+		if ( in_array( $old_status, [ 'trash' ] ) ) {
+			$this->on_product_update( $post->ID );
+		}
 	}
 
 	/**
 	 * @param $product_id string
 	 *
 	 * @return void
+	 * @deprecated This method is no longer used, product deletion is hooked by "product_lifecycle_handler" method
 	 */
 	public function on_product_delete( $product_id ) {
 		$product = wc_get_product( $product_id );
@@ -220,7 +226,7 @@ class Integ_Admin {
 	}
 
 	/**
-	 * @param $post WP_POST
+	 * @param string $post
 	 *
 	 * @return void
 	 */
@@ -233,6 +239,7 @@ class Integ_Admin {
 	 * @param $post WP_POST
 	 *
 	 * @return void
+	 * @deprecated This method is no longer used, product creation is hooked by "on_product_update" method
 	 */
 	public function on_product_create( $post ) {
 		$product = wc_get_product( $post->ID );
