@@ -231,6 +231,7 @@ class Integ_Admin {
 
 	/**
 	 * @param string $product_id
+	 * @param WC_Product $wc_product
 	 *
 	 * @return void
 	 */
