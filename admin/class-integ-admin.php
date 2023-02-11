@@ -174,9 +174,8 @@ class Integ_Admin {
 	| Manage product status lifecycle
 	|--------------------------------------------------------------------------
 	|
-	| Woocommerce has a lot of hooks to manage product that doesn't work
-	| the workaround to solve this issue is to manage product status
-	| on every status update.
+	| Woocommerce has a lot of hooks to manage product that doesn't work,
+	| this method will handle all "delete", "exclusion" and "restore" actions.
 	|
 	*/
 	public function product_lifecycle_handler( $new_status, $old_status, $post ) {
@@ -201,7 +200,9 @@ class Integ_Admin {
 		/**
 		 * These status are used to disable the product on the
 		 * store catalog, we will send a request to disable
-		 * the product as well.
+		 * the product as well, in case of status
+		 * "draft" a product update will take
+		 * place.
 		 */
 		$disabledStatus = [ 'trash', 'pending' ];
 		if ( in_array( $new_status, $disabledStatus )) {

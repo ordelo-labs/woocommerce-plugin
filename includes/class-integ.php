@@ -172,7 +172,7 @@ class Integ {
 		 * Hook into the post transition status to get the "delete" action.
 		 * The hook "woocommerce_delete_product" does not work.
 		 */
-		$this->loader->add_action( 'transition_post_status', $plugin_admin, 'product_lifecycle_handler', 10, 3 );
+		$this->loader->add_action( 'transition_post_status', $plugin_admin, 'product_lifecycle_handler', 11, 3 );
 
 		/**
 		 * Set which hooks will be used to manage orders.
