@@ -164,11 +164,9 @@ class Integ {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
 		/**
-		 * This hook will work for both create and update of products,
-		 * It will also be called when a order is updated and
-		 * the product stock is changed.
+		 * This hook will work for both create and update of products.
 		 */
-		$this->loader->add_action( 'woocommerce_update_product', $plugin_admin, 'on_product_update' );
+		$this->loader->add_action( 'woocommerce_update_product', $plugin_admin, 'on_product_update', 10, 2 );
 
 		/**
 		 * Hook into the post transition status to get the "delete" action.
@@ -177,24 +175,15 @@ class Integ {
 		$this->loader->add_action( 'transition_post_status', $plugin_admin, 'product_lifecycle_handler', 10, 3 );
 
 		/**
-		 * Hook into order status update.
+		 * Set which hooks will be used to manage orders.
 		 */
-		$this->loader->add_action( 'woocommerce_order_status_changed', $plugin_admin, 'on_order_update', 10, 3 );
-
+		$this->loader->add_action( 'woocommerce_order_status_changed', $plugin_admin, 'on_order_create' );
 
 		/**
 		 * Add an text field on woocommerce general settings to store the bearer token
 		 * that will be used to make API calls to integrate the product.
 		 */
 		$this->loader->add_action( 'woocommerce_general_settings', $plugin_admin, 'add_token_input' );
-
-		/**
-		 * Hook into the field "add_token_input" change, this hook will
-		 * be called when the user update the API token
-		 * we'll take advantage of this action and
-		 * update the product categories and
-		 * attributes.
-		 */
 		$this->loader->add_action( "update_option_{$this->plugin_name}", $plugin_admin, 'sync_attributes' );
 	}
 

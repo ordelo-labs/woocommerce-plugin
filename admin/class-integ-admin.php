@@ -196,33 +196,37 @@ class Integ_Admin {
 			return null;
 		}
 
+		$wc_product = wc_get_product( $post->ID );
+
 		/**
 		 * These status are used to disable the product on the
 		 * store catalog, we will send a request to disable
 		 * the product as well.
 		 */
-		$disabledStatus = [ 'trash', 'draft', 'pending' ];
-		if ( in_array( $new_status, $disabledStatus ) ) {
-			$this->on_product_delete( $post );
+		$disabledStatus = [ 'trash', 'pending' ];
+		if ( in_array( $new_status, $disabledStatus )) {
+			$this->on_product_delete( $wc_product );
 
 			return null;
 		}
 
-		// Check if the product is being restore from trash.
+		// Check if the product is restore from trash.
 		if ( in_array( $old_status, [ 'trash' ] ) ) {
-			$this->on_product_update( $post->ID );
+			$this->on_product_update( $wc_product->get_id(), $wc_product);
 		}
 	}
 
 	/**
-	 * @param $product_id string
+	 * The hook "woocommerce_delete_order" does not work, we should not try
+	 * to use it with this method, instead use method
+	 * "product_lifecycle_handler".
+	 *
+	 * @param WC_Product $wc_product
 	 *
 	 * @return void
-	 * @deprecated This method is no longer used, product deletion is hooked by "product_lifecycle_handler" method
 	 */
-	public function on_product_delete( $product_id ) {
-		$product = wc_get_product( $product_id );
-		$this->client->products()->delete( $product->get_sku() );
+	public function on_product_delete( $wc_product ) {
+		$this->client->products()->delete( $wc_product->get_sku() );
 	}
 
 	/**
@@ -230,20 +234,18 @@ class Integ_Admin {
 	 *
 	 * @return void
 	 */
-	public function on_product_update( $product_id ) {
-		$product = wc_get_product( $product_id );
-		$this->client->products()->update( $product->get_sku(), $product->get_data() );
+	public function on_product_update( $product_id, $wc_product ) {
+		$this->client->products()->update( $wc_product->get_sku(), $wc_product->get_data() );
 	}
 
 	/**
-	 * @param string $product_id
+	 * @param WC_Product $wc_product
 	 *
 	 * @return void
 	 * @deprecated This method is no longer used, product creation is hooked by "on_product_update" method
 	 */
-	public function on_product_create( $product_id ) {
-		$product = wc_get_product( $product_id );
-		$this->client->products()->create( $product->get_data() );
+	public function on_product_create( $wc_product ) {
+		$this->client->products()->create( $wc_product->get_data() );
 	}
 
 	/**
