@@ -43,5 +43,4 @@ class Integ_i18n {
 	}
 
 
-
 }

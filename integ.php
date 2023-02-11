@@ -79,4 +79,5 @@ function run_integ() {
 	$plugin->run();
 
 }
+
 run_integ();
