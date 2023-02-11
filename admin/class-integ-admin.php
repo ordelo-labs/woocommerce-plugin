@@ -226,23 +226,23 @@ class Integ_Admin {
 	}
 
 	/**
-	 * @param string $post
+	 * @param string $product_id
 	 *
 	 * @return void
 	 */
-	public function on_product_update( $productID ) {
-		$product = wc_get_product( $productID );
+	public function on_product_update( $product_id ) {
+		$product = wc_get_product( $product_id );
 		$this->client->products()->update( $product->get_sku(), $product->get_data() );
 	}
 
 	/**
-	 * @param $post WP_POST
+	 * @param string $product_id
 	 *
 	 * @return void
 	 * @deprecated This method is no longer used, product creation is hooked by "on_product_update" method
 	 */
-	public function on_product_create( $post ) {
-		$product = wc_get_product( $post->ID );
+	public function on_product_create( $product_id ) {
+		$product = wc_get_product( $product_id );
 		$this->client->products()->create( $product->get_data() );
 	}
 
