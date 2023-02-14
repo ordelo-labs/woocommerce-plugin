@@ -1,5 +1,7 @@
 <?php
 
+require_once plugin_dir_path( __FILE__ ) . 'helpers/tools.php';
+
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -43,15 +45,16 @@ class Integ_Admin {
 	/**
 	 * The Client class to use Integ REST API
 	 *
-	 * @var Integ
+	 * @var Integ_Client
 	 */
 	private $client;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @param string $plugin_name The name of this plugin.
-	 * @param string $version The version of this plugin.
+	 * @param string 		$plugin_name The name of this plugin.
+	 * @param string 		$version The version of this plugin.
+	 * @param Integ_Client	$client the HTTP client.
 	 *
 	 * @since    1.0.0
 	 */
@@ -154,30 +157,30 @@ class Integ_Admin {
 	|
 	*/
 	public function sync_attributes() {
-		$categories = get_terms(
-			array(
-				'taxonomy'   => 'product_cat',
-				'orderby'    => 'name',
-				'hide_empty' => false,
-			)
-		);
+		$category_terms = get_terms([
+			'taxonomy'   => 'product_cat',
+			'orderby'    => 'name',
+			'hide_empty' => false
+		]);
 
-		$categories = wp_list_pluck( $categories, 'name' );
+		$categories = treeify_terms($category_terms);
 		$attributes = wp_list_pluck( array_values( wc_get_attribute_taxonomies() ), 'attribute_name' );
 
 		$this->client->categories()->upsert( $categories );
 		$this->client->attributes()->upsert( $attributes );
 	}
 
-	/*
-	|--------------------------------------------------------------------------
-	| Manage product status lifecycle
-	|--------------------------------------------------------------------------
-	|
-	| Woocommerce has a lot of hooks to manage product that doesn't work,
-	| this method will handle all "delete", "exclusion" and "restore" actions.
-	|
-	*/
+	/**
+	 * Manage product status lifecycle.
+	 * 
+	 * Woocommerce has a lot of hooks to manage product that doesn't work,
+	 * this method will handle all "delete", "exclusion" and "restore" actions
+	 * 
+	 * @param string $new_status
+	 * @param string $old_status
+	 * @param WP_Post $post
+	 * @return void
+	 */
 	public function product_lifecycle_handler( $new_status, $old_status, $post ) {
 		if ( empty( get_option( $this->plugin_name ) ) ) {
 			error_log( "[integ.app] token not configured." );
@@ -203,6 +206,10 @@ class Integ_Admin {
 		 * the product as well, in case of status
 		 * "draft" a product update will take
 		 * place.
+		 * 
+		 * The status "draft" is not used here because
+		 * it would fire 2 events, "delete" and then
+		 * "update".
 		 */
 		$disabledStatus = [ 'trash', 'pending' ];
 		if ( in_array( $new_status, $disabledStatus )) {
@@ -237,7 +244,8 @@ class Integ_Admin {
 	 * @return void
 	 */
 	public function on_product_update( $product_id, $wc_product ) {
-		$this->client->products()->update( $wc_product->get_sku(), $wc_product->get_data() );
+		$product = prepare_product_payload( $wc_product );
+		$this->client->products()->update( $wc_product->get_sku(), $product->get_data() );
 	}
 
 	/**
@@ -247,7 +255,8 @@ class Integ_Admin {
 	 * @deprecated This method is no longer used, product creation is hooked by "on_product_update" method
 	 */
 	public function on_product_create( $wc_product ) {
-		$this->client->products()->create( $wc_product->get_data() );
+		$product = prepare_product_payload( $wc_product );
+		$this->client->products()->create( $product->get_data() );
 	}
 
 	/**
@@ -259,7 +268,6 @@ class Integ_Admin {
 	 */
 	public function on_order_update( $order_id, $old_status, $new_status ) {
 		$this->client->orders()->update( $order_id, [
-			'order_id'        => $order_id,
 			'status'          => $new_status,
 			'previous_status' => $old_status
 		] );

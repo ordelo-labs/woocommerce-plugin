@@ -9,19 +9,17 @@
  * @return array array of term data. Note the term data is an array,
  * rather than term object.
  */
-function treeify_terms($terms, $root_id = 0)
-{
+function treeify_terms($terms, $root_id = 0) {
     $tree = array();
 
-    foreach ($terms as $term) {
-        if ($term->parent === $root_id) {
+    foreach ( $terms as $term ) {
+        if ( $term->parent === $root_id ) {
             array_push(
                 $tree,
                 array(
                     'name'     => $term->name,
                     'slug'     => $term->slug,
                     'id'       => $term->term_id,
-                    'count'    => $term->count,
                     'children' => treeify_terms($terms, $term->term_id),
                 )
             );
@@ -29,4 +27,28 @@ function treeify_terms($terms, $root_id = 0)
     }
 
     return $tree;
+}
+
+/**
+ * Retrieve the product information.
+ * 
+ * This method will retrieve all product information
+ * retrieved by woocommerce rest api.
+ * 
+ * ! Using the controller to get the product is
+ * not ideal.
+ * 
+ * TODO: Find a way of retrieving product information without using the WC_REST_Products_Controller.
+ * 
+ * @param WC_Product
+ * @return WC_Product
+ */
+function prepare_product_payload( $wc_product ) {
+    $product = (new WC_REST_Products_Controller())
+        ->get_item( [
+            'id' => $wc_product->get_id(),
+            'context' => false
+        ] );
+
+    return $product;
 }

@@ -174,6 +174,9 @@ class Integ {
 		 */
 		$this->loader->add_action( 'transition_post_status', $plugin_admin, 'product_lifecycle_handler', 11, 3 );
 
+		$this->loader->add_action( 'trash_post', $plugin_admin, 'on_product_delete', 10, 2);
+		$this->loader->add_action( 'untrash_post', $plugin_admin, 'on_product_restore', 10, 2);
+
 		/**
 		 * Set which hooks will be used to manage orders.
 		 */

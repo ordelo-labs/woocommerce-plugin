@@ -7,7 +7,7 @@ class Integ_ProductService extends Integ_AbstractAPI {
 	public function create( $data ) {
 		$response = wp_remote_post(
 			sprintf( '%s/products', $this->endpoint ),
-			[ 'body' => json_encode( $data ), 'headers' => $this->headers ]
+			[ 'body' => wp_json_encode( $data ), 'headers' => $this->headers ]
 		);
 
 		return ! $this->hasResponseError( $response );
@@ -22,7 +22,7 @@ class Integ_ProductService extends Integ_AbstractAPI {
 	public function update( $product_sku, $product_content ) {
 		$response = wp_remote_request(
 			sprintf( '%s/products/%s', $this->endpoint, $product_sku ),
-			[ 'method' => 'PUT', 'body' => json_encode( $product_content ), 'headers' => $this->headers ]
+			[ 'method' => 'PUT', 'body' => wp_json_encode( $product_content ), 'headers' => $this->headers ]
 		);
 
 		return ! $this->hasResponseError( $response );
@@ -50,7 +50,7 @@ class Integ_ProductService extends Integ_AbstractAPI {
 			sprintf( '%s/products/%s', $this->endpoint, $product_sku ),
 			[
 				'method'  => 'PATCH',
-				'body'    => json_encode( [ 'deleted_at' => date( 'd-m-Y h:i:s' ) ] ),
+				'body'    => wp_json_encode( [ 'deleted_at' => date( 'd-m-Y h:i:s' ) ] ),
 				'headers' => $this->headers
 			]
 		);
