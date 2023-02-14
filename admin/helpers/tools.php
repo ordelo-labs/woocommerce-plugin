@@ -40,7 +40,7 @@ function treeify_terms($terms, $root_id = 0) {
  * 
  * TODO: Find a way of retrieving product information without using the WC_REST_Products_Controller.
  * 
- * @param WC_Product
+ * @param WC_Product $wc_product
  * @return WC_Product
  */
 function prepare_product_payload( $wc_product ) {
