@@ -162,9 +162,14 @@ class Integ_Admin {
 			'orderby'    => 'name',
 			'hide_empty' => false
 		]);
-
 		$categories = treeify_terms($category_terms);
-		$attributes = wp_list_pluck( array_values( wc_get_attribute_taxonomies() ), 'attribute_name' );
+
+		$attributes = array_map(
+			function ($attribute) {
+				return [ 'name' => $attribute ];
+			},
+			wp_list_pluck( array_values( wc_get_attribute_taxonomies() ), 'attribute_name' )
+		);
 
 		$this->client->categories()->upsert( $categories );
 		$this->client->attributes()->upsert( $attributes );
