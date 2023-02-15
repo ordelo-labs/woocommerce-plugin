@@ -180,6 +180,11 @@ class Integ {
 		$this->loader->add_action( 'woocommerce_order_status_changed', $plugin_admin, 'on_order_update', 10, 3 );
 
 		/**
+		 * Hook into product category creation.
+		 */
+		$this->loader->add_action( 'create_product_cat', $plugin_admin, 'on_product_category_create', 10, 2 );
+
+		/**
 		 * Add an text field on woocommerce general settings to store the bearer token
 		 * that will be used to make API calls to integrate the product.
 		 */

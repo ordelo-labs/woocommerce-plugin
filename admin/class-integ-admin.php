@@ -264,6 +264,17 @@ class Integ_Admin {
 		$this->client->products()->create( $product->get_data() );
 	}
 
+	public function on_product_category_create( $category_id ) {
+		$term = get_term_by( 'id', $category_id, 'product_cat' );
+		$category = [
+			'name' 		=> $term->name,
+			'slug'		=> $term->slug,
+			'id'		=> $term->term_id,
+			'children' 	=> []
+		];
+		$this->client->categories()->upsert( $category );
+	}
+
 	/**
 	 * @param string $order_id
 	 * @param string $old_status
