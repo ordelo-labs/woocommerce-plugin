@@ -264,6 +264,11 @@ class Integ_Admin {
 		$this->client->products()->create( $product->get_data() );
 	}
 
+	/**
+	 * @param string $category_id
+	 * 
+	 * @return void
+	 */
 	public function on_product_category_create( $category_id ) {
 		$term = get_term_by( 'id', $category_id, 'product_cat' );
 		$category = [
@@ -273,6 +278,22 @@ class Integ_Admin {
 			'children' 	=> []
 		];
 		$this->client->categories()->upsert( $category );
+	}
+
+	/**
+	 * @param string $attribute_id
+	 * @param array $attribute
+	 * 
+	 * @return void
+	 */
+	public function on_product_attribute_create( $attribute_id, $attribute ) {
+		$content = [ 'name' => $attribute['attribute_name'] ];
+		$this->client->attributes()->upsert( [ $content ] );
+	}
+
+	public function on_product_attribute_update( $attribute_id, $attribute, $old_name ) {
+		$content = [ 'name' => $attribute->attribute_name, 'previous_name' => $old_name ];
+		$this->client->attributes()->upsert( [ $content ] );
 	}
 
 	/**

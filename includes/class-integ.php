@@ -185,6 +185,11 @@ class Integ {
 		$this->loader->add_action( 'create_product_cat', $plugin_admin, 'on_product_category_create', 10, 2 );
 
 		/**
+		 * Hook into product attribute creation.
+		 */
+		$this->loader->add_action( 'woocommerce_attribute_added', $plugin_admin, 'on_product_attribute_create', 10, 2 );
+
+		/**
 		 * Add an text field on woocommerce general settings to store the bearer token
 		 * that will be used to make API calls to integrate the product.
 		 */
