@@ -109,15 +109,14 @@ class Integ_Admin {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/integ-admin.js', array( 'jquery' ), $this->version, false );
 	}
 
-	/*
-	|--------------------------------------------------------------------------
-	| Token Input Field
-	|--------------------------------------------------------------------------
-	|
-	| This function adds a text input on the woocommerce settings page,
-	| the input is used to place the user api TOKEN.
-	|
-	*/
+	/**
+	 * Token Input Field
+	 * 
+	 * This function adds a text input on the woocommerce settings page,
+	 * the input is used to place the user api TOKEN.
+	 * 
+	 * @param array $settings
+	 */
 	public function add_token_input( $settings ) {
 		$updated_settings = [];
 
@@ -144,18 +143,15 @@ class Integ_Admin {
 		return $updated_settings;
 	}
 
-	/*
-	|--------------------------------------------------------------------------
-	| Sync product attributes and categories
-	|--------------------------------------------------------------------------
-	|
-	| This function hooks into the action of saving the request token,
-	| it's mainly used to sync the product attributes and
-	| categories of products, to avoid extra work
-	| on our API we'll send all product and
-	| categories so we can map it latter.
-	|
-	*/
+	/**
+	 * Sync product attributes and categories
+	 * 
+	 * This function hooks into the action of saving the request token,
+	 * it's mainly used to sync the product attributes and
+	 * categories of products, to avoid extra work
+	 * on our API we'll send all product and
+	 * categories so we can map it latter.
+	 */
 	public function sync_attributes() {
 		$category_terms = get_terms([
 			'taxonomy'   => 'product_cat',
@@ -288,11 +284,6 @@ class Integ_Admin {
 	 */
 	public function on_product_attribute_create( $attribute_id, $attribute ) {
 		$content = [ 'name' => $attribute['attribute_name'] ];
-		$this->client->attributes()->upsert( [ $content ] );
-	}
-
-	public function on_product_attribute_update( $attribute_id, $attribute, $old_name ) {
-		$content = [ 'name' => $attribute->attribute_name, 'previous_name' => $old_name ];
 		$this->client->attributes()->upsert( [ $content ] );
 	}
 
