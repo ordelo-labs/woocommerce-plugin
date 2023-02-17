@@ -153,19 +153,19 @@ class Integ_Admin {
 	 * categories so we can map it latter.
 	 */
 	public function sync_attributes() {
-		$category_terms = get_terms([
+		$category_terms = get_terms( [
 			'taxonomy'   => 'product_cat',
 			'orderby'    => 'name',
 			'hide_empty' => false
-		]);
-		$categories = treeify_terms($category_terms);
+		] );
+		$categories = treeify_terms( $category_terms );
 
-		$attributes = array_map(
-			function ($attribute) {
-				return [ 'name' => $attribute ];
-			},
-			wp_list_pluck( array_values( wc_get_attribute_taxonomies() ), 'attribute_name' )
-		);
+		$attributes = [];
+		foreach( wc_get_attribute_taxonomies() as $values ) {
+			// Get the array of term names for each product attribute
+			$term_names = get_terms( [ 'taxonomy' => 'pa_' . $values->attribute_name, 'fields' => 'names' ] );
+			$attributes[] = [ 'name' => $values->attribute_label, 'values' => $term_names ];
+		};
 
 		$this->client->categories()->upsert( $categories );
 		$this->client->attributes()->upsert( $attributes );
@@ -283,7 +283,7 @@ class Integ_Admin {
 	 * @return void
 	 */
 	public function on_product_attribute_create( $attribute_id, $attribute ) {
-		$content = [ 'name' => $attribute['attribute_name'] ];
+		$content = [ 'name' => $attribute['attribute_name'], 'values' => [] ];
 		$this->client->attributes()->upsert( [ $content ] );
 	}
 
