@@ -123,7 +123,7 @@ class Integ_Admin {
 		foreach ( $settings as $section ) {
 			if (
 				isset( $section['id'] ) && 'general_options' == $section['id'] &&
-				isset( $section['type'] ) && 'sectionend' == $section['type']
+				isset( $section['type'] ) && 'sectioned' == $section['type']
 			) {
 				$updated_settings[] = [
 					'name'     => __( 'Token para integ.app', 'wc_seq_order_numbers' ),
@@ -141,34 +141,6 @@ class Integ_Admin {
 		}
 
 		return $updated_settings;
-	}
-
-	/**
-	 * Sync product attributes and categories
-	 * 
-	 * This function hooks into the action of saving the request token,
-	 * it's mainly used to sync the product attributes and
-	 * categories of products, to avoid extra work
-	 * on our API we'll send all product and
-	 * categories so we can map it latter.
-	 */
-	public function sync_attributes() {
-		$category_terms = get_terms( [
-			'taxonomy'   => 'product_cat',
-			'orderby'    => 'name',
-			'hide_empty' => false
-		] );
-		$categories = treeify_terms( $category_terms );
-
-		$attributes = [];
-		foreach( wc_get_attribute_taxonomies() as $values ) {
-			// Get the array of term names for each product attribute
-			$term_names = get_terms( [ 'taxonomy' => 'pa_' . $values->attribute_name, 'fields' => 'names' ] );
-			$attributes[] = [ 'name' => $values->attribute_label, 'values' => $term_names ];
-		};
-
-		$this->client->categories()->upsert( $categories );
-		$this->client->attributes()->upsert( $attributes );
 	}
 
 	/**
@@ -190,8 +162,7 @@ class Integ_Admin {
 		}
 
 		/**
-		 * This status means that the product
-		 * is not ready to be sold yet.
+		 * This status means that the product is not ready to be sold yet.
 		 */
 		$isNotProduct  = $post->post_type !== 'product';
 		$invalidStatus = [ 'auto-draft', 'importing' ];
@@ -258,33 +229,6 @@ class Integ_Admin {
 	public function on_product_create( $wc_product ) {
 		$product = prepare_product_payload( $wc_product );
 		$this->client->products()->create( $product->get_data() );
-	}
-
-	/**
-	 * @param string $category_id
-	 * 
-	 * @return void
-	 */
-	public function on_product_category_create( $category_id ) {
-		$term = get_term_by( 'id', $category_id, 'product_cat' );
-		$category = [
-			'name' 		=> $term->name,
-			'slug'		=> $term->slug,
-			'id'		=> $term->term_id,
-			'children' 	=> []
-		];
-		$this->client->categories()->upsert( $category );
-	}
-
-	/**
-	 * @param string $attribute_id
-	 * @param array $attribute
-	 * 
-	 * @return void
-	 */
-	public function on_product_attribute_create( $attribute_id, $attribute ) {
-		$content = [ 'name' => $attribute['attribute_name'], 'values' => [] ];
-		$this->client->attributes()->upsert( [ $content ] );
 	}
 
 	/**
