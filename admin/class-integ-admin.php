@@ -221,17 +221,6 @@ class Integ_Admin {
 	}
 
 	/**
-	 * @param WC_Product $wc_product
-	 *
-	 * @return void
-	 * @deprecated This method is no longer used, product creation is hooked by "on_product_update" method
-	 */
-	public function on_product_create( $wc_product ) {
-		$product = prepare_product_payload( $wc_product );
-		$this->client->products()->create( $product->get_data() );
-	}
-
-	/**
 	 * @param string $order_id
 	 * @param string $old_status
 	 * @param string $new_status
