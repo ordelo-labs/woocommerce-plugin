@@ -26,7 +26,7 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if (!defined('WPINC')) {
 	die;
 }
 
@@ -35,14 +35,15 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'INTEG_VERSION', '0.1.0' );
+define('INTEG_VERSION', '1.0.0');
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-integ-activator.php
  */
-function activate_integ() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-integ-activator.php';
+function activate_integ()
+{
+	require_once plugin_dir_path(__FILE__) . 'includes/class-integ-activator.php';
 	Integ_Activator::activate();
 }
 
@@ -50,19 +51,20 @@ function activate_integ() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-integ-deactivator.php
  */
-function deactivate_integ() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-integ-deactivator.php';
+function deactivate_integ()
+{
+	require_once plugin_dir_path(__FILE__) . 'includes/class-integ-deactivator.php';
 	Integ_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_integ' );
-register_deactivation_hook( __FILE__, 'deactivate_integ' );
+register_activation_hook(__FILE__, 'activate_integ');
+register_deactivation_hook(__FILE__, 'deactivate_integ');
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-integ.php';
+require plugin_dir_path(__FILE__) . 'includes/class-integ.php';
 
 /**
  * Begins execution of the plugin.
@@ -73,7 +75,8 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-integ.php';
  *
  * @since    1.0.0
  */
-function run_integ() {
+function run_integ()
+{
 
 	$plugin = new Integ();
 	$plugin->run();

@@ -3,11 +3,7 @@
 
 abstract class Integ_AbstractEntity
 {
-	/**
-	 * Constructor
-	 *
-	 * @param stdClass|array|null $parameters (optional) Entity parameters
-	 */
+
 	public function __construct($parameters = null)
 	{
 		if (!$parameters) {
