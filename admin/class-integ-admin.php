@@ -1,6 +1,6 @@
 <?php
 
-require_once plugin_dir_path( __FILE__ ) . 'helpers/tools.php';
+require_once plugin_dir_path(__FILE__) . 'helpers/tools.php';
 
 /**
  * The admin-specific functionality of the plugin.
@@ -22,7 +22,8 @@ require_once plugin_dir_path( __FILE__ ) . 'helpers/tools.php';
  * @subpackage Integ/admin
  * @author     Integ <aciolyr@gmail.com>
  */
-class Integ_Admin {
+class Integ_Admin
+{
 
 	/**
 	 * The ID of this plugin.
@@ -58,11 +59,12 @@ class Integ_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct( $plugin_name, $version, $client ) {
+	public function __construct($plugin_name, $version, $client)
+	{
 
 		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
-		$this->client      = $client;
+		$this->version = $version;
+		$this->client = $client;
 	}
 
 	/**
@@ -70,7 +72,8 @@ class Integ_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles()
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -84,7 +87,7 @@ class Integ_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/integ-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/integ-admin.css', array(), $this->version, 'all');
 	}
 
 	/**
@@ -92,7 +95,8 @@ class Integ_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts()
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -106,7 +110,7 @@ class Integ_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/integ-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/integ-admin.js', array('jquery'), $this->version, false);
 	}
 
 	/**
@@ -117,23 +121,24 @@ class Integ_Admin {
 	 * 
 	 * @param array $settings
 	 */
-	public function add_token_input( $settings ) {
+	public function add_token_input($settings)
+	{
 		$updated_settings = [];
 
-		foreach ( $settings as $section ) {
+		foreach ($settings as $section) {
 			if (
-				isset( $section['id'] ) && 'general_options' == $section['id'] &&
-				isset( $section['type'] ) && 'sectioned' == $section['type']
+				isset($section['id']) && 'general_options' == $section['id'] &&
+				isset($section['type']) && 'sectionend' == $section['type']
 			) {
 				$updated_settings[] = [
-					'name'     => __( 'Token para integ.app', 'wc_seq_order_numbers' ),
-					'desc_tip' => __( 'Token de requisição encontrado no painel de controle (pagina de perfil)', 'wc_seq_order_numbers' ),
-					'id'       => $this->plugin_name,
-					'type'     => 'password',
-					'css'      => 'min-width:300px;',
-					'std'      => '',  // WC < 2.0
-					'default'  => '',  // WC >= 2.0
-					'desc'     => __( 'Exemplo: b4e58140b61cf086c82153f6c371668684f6ca71' ),
+					'name' => __('Token para integ.app', 'wc_seq_order_numbers'),
+					'desc_tip' => __('Token de requisição encontrado no painel de controle (pagina de perfil)', 'wc_seq_order_numbers'),
+					'id' => $this->plugin_name,
+					'type' => 'password',
+					'css' => 'min-width:300px;',
+					'std' => '',  // WC < 2.0
+					'default' => '',  // WC >= 2.0
+					'desc' => __('Exemplo: b4e58140b61cf086c82153f6c371668684f6ca71'),
 				];
 			}
 
@@ -154,9 +159,10 @@ class Integ_Admin {
 	 * @param WP_Post $post
 	 * @return void
 	 */
-	public function product_lifecycle_handler( $new_status, $old_status, $post ) {
-		if ( empty( get_option( $this->plugin_name ) ) ) {
-			error_log( "[integ.app] token not configured." );
+	public function product_lifecycle_handler($new_status, $old_status, $post)
+	{
+		if (empty(get_option($this->plugin_name))) {
+			error_log("[integ.app] token not configured.");
 
 			return null;
 		}
@@ -164,13 +170,13 @@ class Integ_Admin {
 		/**
 		 * This status means that the product is not ready to be sold yet.
 		 */
-		$isNotProduct  = $post->post_type !== 'product';
-		$invalidStatus = [ 'auto-draft', 'importing' ];
-		if ( $isNotProduct || in_array( $new_status, $invalidStatus ) ) {
+		$isNotProduct = $post->post_type !== 'product';
+		$invalidStatus = ['auto-draft', 'importing'];
+		if ($isNotProduct || in_array($new_status, $invalidStatus)) {
 			return null;
 		}
 
-		$wc_product = wc_get_product( $post->ID );
+		$wc_product = wc_get_product($post->ID);
 
 		/**
 		 * These status are used to disable the product on the
@@ -183,16 +189,16 @@ class Integ_Admin {
 		 * it would fire 2 events, "delete" and then
 		 * "update".
 		 */
-		$disabledStatus = [ 'trash', 'pending' ];
-		if ( in_array( $new_status, $disabledStatus )) {
-			$this->on_product_delete( $wc_product );
+		$disabledStatus = ['trash', 'pending'];
+		if (in_array($new_status, $disabledStatus)) {
+			$this->on_product_delete($wc_product);
 
 			return null;
 		}
 
 		// Check if the product is restore from trash.
-		if ( in_array( $old_status, [ 'trash' ] ) ) {
-			$this->on_product_update( $wc_product->get_id(), $wc_product);
+		if (in_array($old_status, ['trash'])) {
+			$this->on_product_update($wc_product->get_id(), $wc_product);
 		}
 	}
 
@@ -205,8 +211,9 @@ class Integ_Admin {
 	 *
 	 * @return void
 	 */
-	public function on_product_delete( $wc_product ) {
-		$this->client->products()->delete( $wc_product->get_sku() );
+	public function on_product_delete($wc_product)
+	{
+		$this->client->products()->delete($wc_product->get_sku());
 	}
 
 	/**
@@ -215,9 +222,10 @@ class Integ_Admin {
 	 *
 	 * @return void
 	 */
-	public function on_product_update( $product_id, $wc_product ) {
-		$product = prepare_product_payload( $wc_product );
-		$this->client->products()->update( $wc_product->get_sku(), $product->get_data() );
+	public function on_product_update($product_id, $wc_product)
+	{
+		$product = prepare_product_payload($wc_product);
+		$this->client->products()->update($wc_product->get_sku(), $product->get_data());
 	}
 
 	/**
@@ -227,10 +235,11 @@ class Integ_Admin {
 	 *
 	 * @return void
 	 */
-	public function on_order_update( $order_id, $old_status, $new_status ) {
-		$this->client->orders()->update( $order_id, [
-			'status'          => $new_status,
+	public function on_order_update($order_id, $old_status, $new_status)
+	{
+		$this->client->orders()->update($order_id, [
+			'status' => $new_status,
 			'previous_status' => $old_status
-		] );
+		]);
 	}
 }

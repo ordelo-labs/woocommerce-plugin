@@ -20,7 +20,8 @@
  * @subpackage Integ/includes
  * @author     Integ <aciolyr@gmail.com>
  */
-class Integ_Activator {
+class Integ_Activator
+{
 
 	/**
 	 * Short Description. (use period)
@@ -29,7 +30,8 @@ class Integ_Activator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function activate() {
+	public static function activate()
+	{
 
 	}
 

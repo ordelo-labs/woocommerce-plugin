@@ -21,7 +21,8 @@
  * @subpackage Integ/includes
  * @author     Integ <aciolyr@gmail.com>
  */
-class Integ_Loader {
+class Integ_Loader
+{
 
 	/**
 	 * The array of actions registered with WordPress.
@@ -46,7 +47,8 @@ class Integ_Loader {
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 
 		$this->actions = array();
 		$this->filters = array();
@@ -64,8 +66,9 @@ class Integ_Loader {
 	 *
 	 * @since    1.0.0
 	 */
-	public function add_action( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
-		$this->actions = $this->add( $this->actions, $hook, $component, $callback, $priority, $accepted_args );
+	public function add_action($hook, $component, $callback, $priority = 10, $accepted_args = 1)
+	{
+		$this->actions = $this->add($this->actions, $hook, $component, $callback, $priority, $accepted_args);
 	}
 
 	/**
@@ -83,13 +86,14 @@ class Integ_Loader {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function add( $hooks, $hook, $component, $callback, $priority, $accepted_args ) {
+	private function add($hooks, $hook, $component, $callback, $priority, $accepted_args)
+	{
 
 		$hooks[] = array(
-			'hook'          => $hook,
-			'component'     => $component,
-			'callback'      => $callback,
-			'priority'      => $priority,
+			'hook' => $hook,
+			'component' => $component,
+			'callback' => $callback,
+			'priority' => $priority,
 			'accepted_args' => $accepted_args
 		);
 
@@ -108,8 +112,9 @@ class Integ_Loader {
 	 *
 	 * @since    1.0.0
 	 */
-	public function add_filter( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
-		$this->filters = $this->add( $this->filters, $hook, $component, $callback, $priority, $accepted_args );
+	public function add_filter($hook, $component, $callback, $priority = 10, $accepted_args = 1)
+	{
+		$this->filters = $this->add($this->filters, $hook, $component, $callback, $priority, $accepted_args);
 	}
 
 	/**
@@ -117,20 +122,21 @@ class Integ_Loader {
 	 *
 	 * @since    1.0.0
 	 */
-	public function run() {
+	public function run()
+	{
 
-		foreach ( $this->filters as $hook ) {
-			add_filter( $hook['hook'], array(
+		foreach ($this->filters as $hook) {
+			add_filter($hook['hook'], array(
 				$hook['component'],
 				$hook['callback']
-			), $hook['priority'], $hook['accepted_args'] );
+			), $hook['priority'], $hook['accepted_args']);
 		}
 
-		foreach ( $this->actions as $hook ) {
-			add_action( $hook['hook'], array(
+		foreach ($this->actions as $hook) {
+			add_action($hook['hook'], array(
 				$hook['component'],
 				$hook['callback']
-			), $hook['priority'], $hook['accepted_args'] );
+			), $hook['priority'], $hook['accepted_args']);
 		}
 
 	}

@@ -1,22 +1,24 @@
 <?php
 
 
-abstract class Integ_AbstractEntity {
+abstract class Integ_AbstractEntity
+{
 	/**
 	 * Constructor
 	 *
 	 * @param stdClass|array|null $parameters (optional) Entity parameters
 	 */
-	public function __construct( $parameters = null ) {
-		if ( ! $parameters ) {
+	public function __construct($parameters = null)
+	{
+		if (!$parameters) {
 			return;
 		}
 
-		if ( $parameters instanceof stdClass ) {
-			$parameters = get_object_vars( $parameters );
+		if ($parameters instanceof stdClass) {
+			$parameters = get_object_vars($parameters);
 		}
 
-		$this->build( $parameters );
+		$this->build($parameters);
 	}
 
 	/**
@@ -24,16 +26,17 @@ abstract class Integ_AbstractEntity {
 	 *
 	 * @param array $parameters Entity parameters
 	 */
-	public function build( array $parameters ) {
-		foreach ( $parameters as $property => $value ) {
-			if ( property_exists( $this, $property ) ) {
+	public function build(array $parameters)
+	{
+		foreach ($parameters as $property => $value) {
+			if (property_exists($this, $property)) {
 				$this->$property = $value;
 
 				// Apply mutator
-				$mutator = 'set' . ucfirst( static::convertToCamelCase( $property ) );
+				$mutator = 'set' . ucfirst(static::convertToCamelCase($property));
 
-				if ( method_exists( $this, $mutator ) ) {
-					call_user_func_array( array( $this, $mutator ), [ $value ] );
+				if (method_exists($this, $mutator)) {
+					call_user_func_array(array($this, $mutator), [$value]);
 				}
 			}
 		}
@@ -46,12 +49,13 @@ abstract class Integ_AbstractEntity {
 	 *
 	 * @return  string  Camel case string
 	 */
-	protected static function convertToCamelCase( $str ) {
-		$callback = function ( $match ) {
-			return strtoupper( $match[2] );
+	protected static function convertToCamelCase($str)
+	{
+		$callback = function ($match) {
+			return strtoupper($match[2]);
 		};
 
-		return lcfirst( preg_replace_callback( '/(^|_)([a-z])/', $callback, $str ) );
+		return lcfirst(preg_replace_callback('/(^|_)([a-z])/', $callback, $str));
 	}
 
 	/**
@@ -61,14 +65,15 @@ abstract class Integ_AbstractEntity {
 	 *
 	 * @return DateTime
 	 */
-	protected static function convertDateTime( $date ) {
-		if ( ! $date ) {
+	protected static function convertDateTime($date)
+	{
+		if (!$date) {
 			return;
 		}
 
-		$date = DateTime::createFromFormat( 'd/m/Y', $date );
+		$date = DateTime::createFromFormat('d/m/Y', $date);
 
-		if ( ! $date ) {
+		if (!$date) {
 			return;
 		}
 

@@ -20,7 +20,8 @@
  * @subpackage Integ/includes
  * @author     Integ <aciolyr@gmail.com>
  */
-class Integ_Deactivator {
+class Integ_Deactivator
+{
 
 	/**
 	 * Short Description. (use period)
@@ -29,7 +30,8 @@ class Integ_Deactivator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function deactivate() {
+	public static function deactivate()
+	{
 
 	}
 

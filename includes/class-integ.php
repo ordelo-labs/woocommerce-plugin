@@ -27,7 +27,8 @@
  * @subpackage Integ/includes
  * @author     Integ <aciolyr@gmail.com>
  */
-class Integ {
+class Integ
+{
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -66,8 +67,9 @@ class Integ {
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct() {
-		if ( defined( 'INTEG_VERSION' ) ) {
+	public function __construct()
+	{
+		if (defined('INTEG_VERSION')) {
 			$this->version = INTEG_VERSION;
 		} else {
 			$this->version = '1.0.0';
@@ -96,35 +98,36 @@ class Integ {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function load_dependencies() {
+	private function load_dependencies()
+	{
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-integ-loader.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-integ-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-integ-i18n.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-integ-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-integ-admin.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-integ-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-integ-public.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-integ-public.php';
 
 		/**
 		 * This class responsible to call the integ REST API.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'http/class-integ-client.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'http/class-integ-client.php';
 
 		$this->loader = new Integ_Loader();
 	}
@@ -138,11 +141,12 @@ class Integ {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function set_locale() {
+	private function set_locale()
+	{
 
 		$plugin_i18n = new Integ_i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
 	}
 
 	/**
@@ -152,39 +156,40 @@ class Integ {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_admin_hooks() {
+	private function define_admin_hooks()
+	{
 
 		$plugin_admin = new Integ_Admin(
 			$this->get_plugin_name(),
 			$this->get_version(),
-			new Integ_Client( get_option( $this->plugin_name ) )
+			new Integ_Client(get_option($this->plugin_name))
 		);
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
 		/**
 		 * This hook will work for both create and update of products.
 		 */
-		$this->loader->add_action( 'woocommerce_update_product', $plugin_admin, 'on_product_update', 10, 2 );
+		$this->loader->add_action('woocommerce_update_product', $plugin_admin, 'on_product_update', 10, 2);
 
 		/**
 		 * Hook into the post transition status to get the "delete" action.
 		 * The hook "woocommerce_delete_product" does not work.
 		 */
-		$this->loader->add_action( 'transition_post_status', $plugin_admin, 'product_lifecycle_handler', 11, 3 );
+		$this->loader->add_action('transition_post_status', $plugin_admin, 'product_lifecycle_handler', 11, 3);
 
 		/**
 		 * Set which hooks will be used to manage orders.
 		 */
-		$this->loader->add_action( 'woocommerce_order_status_changed', $plugin_admin, 'on_order_update', 10, 3 );
+		$this->loader->add_action('woocommerce_order_status_changed', $plugin_admin, 'on_order_update', 10, 3);
 
 		/**
 		 * Add a text field on woocommerce general settings to store the bearer token
 		 * that will be used to make API calls to integrate the product.
 		 */
-		$this->loader->add_action( 'woocommerce_general_settings', $plugin_admin, 'add_token_input' );
-		$this->loader->add_action( "update_option_{$this->plugin_name}", $plugin_admin, 'sync_attributes' );
+		$this->loader->add_filter('woocommerce_general_settings', $plugin_admin, 'add_token_input');
+		$this->loader->add_action("update_option_{$this->plugin_name}", $plugin_admin, 'sync_attributes');
 	}
 
 	/**
@@ -194,12 +199,13 @@ class Integ {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_public_hooks() {
+	private function define_public_hooks()
+	{
 
-		$plugin_public = new Integ_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Integ_Public($this->get_plugin_name(), $this->get_version());
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
 	}
 
 	/**
@@ -207,7 +213,8 @@ class Integ {
 	 *
 	 * @since    1.0.0
 	 */
-	public function run() {
+	public function run()
+	{
 		$this->loader->run();
 	}
 
@@ -218,7 +225,8 @@ class Integ {
 	 * @return    string    The name of the plugin.
 	 * @since     1.0.0
 	 */
-	public function get_plugin_name() {
+	public function get_plugin_name()
+	{
 		return $this->plugin_name;
 	}
 
@@ -228,7 +236,8 @@ class Integ {
 	 * @return    Integ_Loader    Orchestrates the hooks of the plugin.
 	 * @since     1.0.0
 	 */
-	public function get_loader() {
+	public function get_loader()
+	{
 		return $this->loader;
 	}
 
@@ -238,7 +247,8 @@ class Integ {
 	 * @return    string    The version number of the plugin.
 	 * @since     1.0.0
 	 */
-	public function get_version() {
+	public function get_version()
+	{
 		return $this->version;
 	}
 }
