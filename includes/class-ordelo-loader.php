@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Integ
- * @subpackage Integ/includes
- * @author     Integ <aciolyr@gmail.com>
+ * @package    Ordelo
+ * @subpackage Ordelo/includes
+ * @author     Ordelo <aciolyr@gmail.com>
  */
-class Integ_Loader
+class Ordelo_Loader
 {
 
 	/**

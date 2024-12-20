@@ -1,26 +1,15 @@
 <?php
-
-/**
- * The public-facing functionality of the plugin.
- *
- * @link       integ.app
- * @since      1.0.0
- *
- * @package    Integ
- * @subpackage Integ/public
- */
-
 /**
  * The public-facing functionality of the plugin.
  *
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
  *
- * @package    Integ
- * @subpackage Integ/public
- * @author     Integ <aciolyr@gmail.com>
+ * @package    Ordelo
+ * @subpackage Ordelo/public
+ * @author     Ordelo <aciolyr@gmail.com>
  */
-class Integ_Public {
+class Ordelo_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -65,10 +54,10 @@ class Integ_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Integ_Loader as all the hooks are defined
+		 * defined in Ordelo_Loader as all the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Integ_Loader will then create the relationship
+		 * The Ordelo_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -88,10 +77,10 @@ class Integ_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Integ_Loader as all the hooks are defined
+		 * defined in Ordelo_Loader as all the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Integ_Loader will then create the relationship
+		 * The Ordelo_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */

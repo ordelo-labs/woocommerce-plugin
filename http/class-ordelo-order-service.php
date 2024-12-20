@@ -1,6 +1,6 @@
 <?php
 
-class Integ_OrderService extends Integ_AbstractAPI
+class Ordelo_OrderService extends Ordelo_AbstractAPI
 {
 	public function update($order_id, $data)
 	{

@@ -1,6 +1,6 @@
 <?php
 
-abstract class Integ_AbstractAPI
+abstract class Ordelo_AbstractAPI
 {
 
 	/**

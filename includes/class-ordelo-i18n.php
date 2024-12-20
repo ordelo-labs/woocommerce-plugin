@@ -6,11 +6,11 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       integ.app
+ * @link       ordelo.app
  * @since      1.0.0
  *
- * @package    Integ
- * @subpackage Integ/includes
+ * @package    Ordelo
+ * @subpackage Ordelo/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Integ
- * @subpackage Integ/includes
- * @author     Integ <aciolyr@gmail.com>
+ * @package    Ordelo
+ * @subpackage Ordelo/includes
+ * @author     Ordelo <aciolyr@gmail.com>
  */
-class Integ_i18n
+class Ordelo_i18n
 {
 
 
@@ -43,6 +43,4 @@ class Integ_i18n
 		);
 
 	}
-
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Integ_ProductService extends Integ_AbstractAPI
+class Ordelo_ProductService extends Ordelo_AbstractAPI
 {
 	/**
 	 * Create new product integration

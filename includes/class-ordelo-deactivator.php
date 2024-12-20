@@ -1,15 +1,4 @@
 <?php
-
-/**
- * Fired during plugin deactivation
- *
- * @link       integ.app
- * @since      1.0.0
- *
- * @package    Integ
- * @subpackage Integ/includes
- */
-
 /**
  * Fired during plugin deactivation.
  *
@@ -17,10 +6,10 @@
  *
  * @since      1.0.0
  * @package    Integ
- * @subpackage Integ/includes
- * @author     Integ <aciolyr@gmail.com>
+ * @subpackage Ordelo/includes
+ * @author     Ordelo <aciolyr@gmail.com>
  */
-class Integ_Deactivator
+class Ordelo_Deactivator
 {
 
 	/**

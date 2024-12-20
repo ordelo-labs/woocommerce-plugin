@@ -5,24 +5,14 @@ require_once plugin_dir_path(__FILE__) . 'helpers/tools.php';
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       integ.app
- * @since      1.0.0
- *
- * @package    Integ
- * @subpackage Integ/admin
- */
-
-/**
- * The admin-specific functionality of the plugin.
- *
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Integ
- * @subpackage Integ/admin
- * @author     Integ <aciolyr@gmail.com>
+ * @package    Ordelo
+ * @subpackage Ordelo/admin
+ * @author     Ordelo <aciolyr@gmail.com>
  */
-class Integ_Admin
+class Ordelo_Admin
 {
 
 	/**
@@ -44,9 +34,9 @@ class Integ_Admin
 	private $version;
 
 	/**
-	 * The Client class to use Integ REST API
+	 * The Client class to use Ordelo REST API
 	 *
-	 * @var Integ_Client
+	 * @var Ordelo_Client
 	 */
 	private $client;
 
@@ -55,7 +45,7 @@ class Integ_Admin
 	 *
 	 * @param string 		$plugin_name The name of this plugin.
 	 * @param string 		$version The version of this plugin.
-	 * @param Integ_Client	$client the HTTP client.
+	 * @param Ordelo_Client	$client the HTTP client.
 	 *
 	 * @since    1.0.0
 	 */
@@ -79,10 +69,10 @@ class Integ_Admin
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Integ_Loader as all of the hooks are defined
+		 * defined in Ordelo_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Integ_Loader will then create the relationship
+		 * The Ordelo_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -102,10 +92,10 @@ class Integ_Admin
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Integ_Loader as all of the hooks are defined
+		 * defined in Ordelo_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Integ_Loader will then create the relationship
+		 * The Ordelo_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */

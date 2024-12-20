@@ -1,18 +1,4 @@
 <?php
-
-/**
- * The file that defines the core plugin class
- *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
- *
- * @link       integ.app
- * @since      1.0.0
- *
- * @package    Integ
- * @subpackage Integ/includes
- */
-
 /**
  * The core plugin class.
  *
@@ -23,11 +9,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Integ
- * @subpackage Integ/includes
- * @author     Integ <aciolyr@gmail.com>
+ * @package    Ordelo
+ * @subpackage Ordelo/includes
+ * @author     Ordelo <aciolyr@gmail.com>
  */
-class Integ
+class Ordelo
 {
 
 	/**
@@ -36,7 +22,7 @@ class Integ
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Integ_Loader $loader Maintains and registers all hooks for the plugin.
+	 * @var      Ordelo_Loader $loader Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -87,10 +73,10 @@ class Integ
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Integ_Loader. Orchestrates the hooks of the plugin.
-	 * - Integ_i18n. Defines internationalization functionality.
-	 * - Integ_Admin. Defines all hooks for the admin area.
-	 * - Integ_Public. Defines all hooks for the public side of the site.
+	 * - Ordelo_Loader. Orchestrates the hooks of the plugin.
+	 * - Ordelo_i18n. Defines internationalization functionality.
+	 * - Ordelo_Admin. Defines all hooks for the admin area.
+	 * - Ordelo_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -105,37 +91,37 @@ class Integ
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-integ-loader.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-ordelo-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-integ-i18n.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-ordelo-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-integ-admin.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-ordelo-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-integ-public.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-ordelo-public.php';
 
 		/**
 		 * This class responsible to call the integ REST API.
 		 */
-		require_once plugin_dir_path(dirname(__FILE__)) . 'http/class-integ-client.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'http/class-ordelo-client.php';
 
-		$this->loader = new Integ_Loader();
+		$this->loader = new Ordelo_Loader();
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Integ_i18n class in order to set the domain and to register the hook
+	 * Uses the Ordelo_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -144,7 +130,7 @@ class Integ
 	private function set_locale()
 	{
 
-		$plugin_i18n = new Integ_i18n();
+		$plugin_i18n = new Ordelo_i18n();
 
 		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
 	}
@@ -159,10 +145,10 @@ class Integ
 	private function define_admin_hooks()
 	{
 
-		$plugin_admin = new Integ_Admin(
+		$plugin_admin = new Ordelo_Admin(
 			$this->get_plugin_name(),
 			$this->get_version(),
-			new Integ_Client(get_option($this->plugin_name))
+			new Ordelo_Client(get_option($this->plugin_name))
 		);
 
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
@@ -202,7 +188,7 @@ class Integ
 	private function define_public_hooks()
 	{
 
-		$plugin_public = new Integ_Public($this->get_plugin_name(), $this->get_version());
+		$plugin_public = new Ordelo_Public($this->get_plugin_name(), $this->get_version());
 
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
@@ -233,7 +219,7 @@ class Integ
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @return    Integ_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Ordelo_Loader    Orchestrates the hooks of the plugin.
 	 * @since     1.0.0
 	 */
 	public function get_loader()
