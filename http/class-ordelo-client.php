@@ -1,10 +1,19 @@
 <?php
 
-require 'class-ordelo-abstract-api.php';
-require 'class-ordelo-product-service.php';
-require 'class-ordelo-order-service.php';
+require_once plugin_dir_path(__FILE__) . 'class-ordelo-abstract-api.php';
+require_once plugin_dir_path(__FILE__) . 'class-ordelo-product-service.php';
+require_once plugin_dir_path(__FILE__) . 'class-ordelo-order-service.php';
 
 
+/**
+ * The Ordelo HTTP resources.
+ *
+ * Defines all resources that can be used on Ordelo API.
+ *
+ * @package    Ordelo
+ * @subpackage Ordelo/admin
+ * @author     Ordelo <aciolyr@gmail.com>
+ */
 class Ordelo_Client
 {
 	private $token;
