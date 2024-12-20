@@ -18,7 +18,7 @@ abstract class Integ_AbstractAPI
 	 *
 	 * @var string
 	 */
-	protected $endpoint = 'https://eoljopqu5ec71b1.m.pipedream.net';
+	protected $endpoint = 'https://eoljopqu5ec71b1.m.pipedream.net/webhook/woocommerce';
 
 	public function __construct($token)
 	{
