@@ -1,6 +1,6 @@
 === Integ ===
 Contributors: (this should be a list of wordpress.org userid's)
-Donate link: ordelo.app
+Donate link: ordelo.com.br
 Tags: integration, mercado livre, marketplace
 Requires at least: 3.0.1
 Tested up to: 3.4

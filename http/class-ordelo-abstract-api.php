@@ -18,7 +18,7 @@ abstract class Ordelo_AbstractAPI
 	 *
 	 * @var string
 	 */
-	protected $endpoint = 'https://eoljopqu5ec71b1.m.pipedream.net/webhook/woocommerce';
+	protected $endpoint = 'https://ordelo.com.br/webhook/woocommerce';
 
 	public function __construct($token)
 	{

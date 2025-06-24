@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * The Ordelo HTTP product resource
+ *
+ * Defines all resources that can be used to call ordelo product API.
+ *
+ * @package     Ordelo
+ * @subpackage  Ordelo/admin
+ * @author      Ordelo <contato@ordelo.com.br>
+ */
 class Ordelo_ProductService extends Ordelo_AbstractAPI
 {
 	/**

@@ -18,7 +18,7 @@
  * Description:       Sincronize seus produtos e pedidos automaticamente com o Mercado Livre
  * Version:           1.0.0
  * Author:            Ordelo
- * Author URI:        ordelo.app
+ * Author URI:        ordelo.com.br
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       ordelo

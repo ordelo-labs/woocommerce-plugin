@@ -7,7 +7,7 @@
  * @since      1.0.0
  * @package    Ordelo
  * @subpackage Ordelo/includes
- * @author     Ordelo <aciolyr@gmail.com>
+ * @author     Ordelo <contato@ordelo.com.br>
  */
 class Ordelo_Activator
 {

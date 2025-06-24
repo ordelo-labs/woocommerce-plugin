@@ -12,7 +12,7 @@ require_once plugin_dir_path(__FILE__) . 'class-ordelo-order-service.php';
  *
  * @package    Ordelo
  * @subpackage Ordelo/admin
- * @author     Ordelo <aciolyr@gmail.com>
+ * @author     Ordelo <contato@ordelo.com.br>
  */
 class Ordelo_Client
 {

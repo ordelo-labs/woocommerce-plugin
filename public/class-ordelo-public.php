@@ -7,7 +7,7 @@
  *
  * @package    Ordelo
  * @subpackage Ordelo/public
- * @author     Ordelo <aciolyr@gmail.com>
+ * @author     Ordelo <contato@ordelo.com.br>
  */
 class Ordelo_Public {
 
@@ -62,7 +62,7 @@ class Ordelo_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/integ-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url(__FILE__) . 'css/ordelo-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -85,7 +85,7 @@ class Ordelo_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/integ-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url(__FILE__) . 'js/ordelo-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 
