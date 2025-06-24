@@ -1,4 +1,4 @@
-=== Integ ===
+=== Ordelo ===
 Contributors: (this should be a list of wordpress.org userid's)
 Donate link: ordelo.com.br
 Tags: integration, mercado livre, marketplace

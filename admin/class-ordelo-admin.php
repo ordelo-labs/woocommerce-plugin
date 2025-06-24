@@ -121,7 +121,7 @@ class Ordelo_Admin
 				isset($section['type']) && 'sectionend' == $section['type']
 			) {
 				$updated_settings[] = [
-					'name' => __('Token para integ.app', 'wc_seq_order_numbers'),
+					'name' => __('Token de integração ordelo', 'wc_seq_order_numbers'),
 					'desc_tip' => __('Token de requisição encontrado no painel de controle (pagina de perfil)', 'wc_seq_order_numbers'),
 					'id' => $this->plugin_name,
 					'type' => 'password',
