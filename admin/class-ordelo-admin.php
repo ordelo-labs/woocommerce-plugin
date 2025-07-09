@@ -77,7 +77,7 @@ class Ordelo_Admin
 		 * class.
 		 */
 
-		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/integ-admin.css', array(), $this->version, 'all');
+		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/ordelo-admin.css', array(), $this->version, 'all');
 	}
 
 	/**
@@ -100,7 +100,7 @@ class Ordelo_Admin
 		 * class.
 		 */
 
-		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/integ-admin.js', array('jquery'), $this->version, false);
+		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/ordelo-admin.js', array('jquery'), $this->version, false);
 	}
 
 	/**
@@ -152,7 +152,7 @@ class Ordelo_Admin
 	public function product_lifecycle_handler($new_status, $old_status, $post)
 	{
 		if (empty(get_option($this->plugin_name))) {
-			error_log("[integ.app] token not configured.");
+			error_log("[ordelo] token not configured.");
 
 			return null;
 		}

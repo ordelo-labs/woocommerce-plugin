@@ -55,12 +55,12 @@ class Ordelo
 	 */
 	public function __construct()
 	{
-		if (defined('INTEG_VERSION')) {
-			$this->version = INTEG_VERSION;
+		if (defined('ORDELO_VERSION')) {
+			$this->version = ORDELO_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'integ';
+		$this->plugin_name = 'ordelo';
 
 		$this->load_dependencies();
 		$this->set_locale();

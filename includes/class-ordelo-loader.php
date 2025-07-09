@@ -3,11 +3,11 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       integ.app
+ * @link       ordelo.com.br
  * @since      1.0.0
  *
- * @package    Integ
- * @subpackage Integ/includes
+ * @package    Ordelo
+ * @subpackage Ordelo/includes
  */
 
 /**

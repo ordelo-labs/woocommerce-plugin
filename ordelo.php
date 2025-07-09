@@ -8,14 +8,14 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              ordelo.app
+ * @link              ordelo.com.br
  * @since             1.0.0
  * @package           Ordelo
  *
  * @wordpress-plugin
  * Plugin Name:       Ordelo
  * Plugin URI:        ordelo.com.br
- * Description:       Sincronize seus produtos e pedidos automaticamente com o Mercado Livre
+ * Description:       Sincronize seus produtos automaticamente com o Mercado Livre
  * Version:           1.0.0
  * Author:            Ordelo
  * Author URI:        ordelo.com.br
@@ -39,9 +39,9 @@ define('ORDELO_VERSION', '1.0.0');
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-integ-activator.php
+ * This action is documented in includes/class-ordelo-activator.php
  */
-function activate_integ()
+function activate_ordelo()
 {
 	require_once plugin_dir_path(__FILE__) . 'includes/class-ordelo-activator.php';
 	Ordelo_Activator::activate();
@@ -49,9 +49,9 @@ function activate_integ()
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-integ-deactivator.php
+ * This action is documented in includes/class-ordelo-deactivator.php
  */
-function deactivate_integ()
+function deactivate_ordelo()
 {
 	require_once plugin_dir_path(__FILE__) . 'includes/class-ordelo-deactivator.php';
 	Ordelo_Deactivator::deactivate();
@@ -75,7 +75,7 @@ require plugin_dir_path(__FILE__) . 'includes/class-ordelo.php';
  *
  * @since    1.0.0
  */
-function run_integ()
+function run_ordelo()
 {
 
 	$plugin = new Ordelo();
@@ -83,4 +83,4 @@ function run_integ()
 
 }
 
-run_integ();
+run_ordelo();

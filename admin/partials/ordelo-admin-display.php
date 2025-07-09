@@ -5,11 +5,11 @@
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
- * @link       integ.app
+ * @link       ordelo.com.br
  * @since      1.0.0
  *
- * @package    Integ
- * @subpackage Integ/admin/partials
+ * @package    Ordelo
+ * @subpackage Ordelo/admin/partials
  */
 ?>
 
