@@ -45,7 +45,7 @@ Este guia é essencial para quem deseja integrar sua loja com a plataforma Ordel
 Ele oferece um passo a passo claro para gerar e inserir a chave de API necessária, garantindo que você possa conectar sua loja rapidamente e sem complicações.
 Ao seguir estas instruções, você otimiza sua operação de e-commerce e aproveita as funcionalidades da Ordelo para potencializar suas vendas.
 
-Para acessar o guia completo com imagens acesse este link >> [Ver Tutorial](https://scribehow.com/shared/Como_conectar_sua_loja_na_plataforma_Ordelo__1ycV25owTHC9XwCKW2rgqw)
+Para acessar o guia completo com imagens acesse este link >> https://scribehow.com/shared/Como_conectar_sua_loja_na_plataforma_Ordelo__1ycV25owTHC9XwCKW2rgqw
 
 == Changelog ==
 

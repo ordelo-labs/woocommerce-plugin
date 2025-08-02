@@ -18,7 +18,7 @@
  * Description:       Sincronize seus produtos automaticamente com o Mercado Livre
  * Version:           1.0.0
  * Author:            Ordelo
- * Author URI:        ordelo.com.br
+ * Author URI:        github.com/ordelo-labs/woocommerce-plugin
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       ordelo
